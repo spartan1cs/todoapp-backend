@@ -3,8 +3,11 @@ package com.todoapp.demo.controller;
 import com.todoapp.demo.entity.Todo;
 import com.todoapp.demo.service.TodoService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/todos")
 @CrossOrigin(origins = "*")  // Allow all origins (for dev). In prod, restrict to specific domains.
+@Validated
 public class TodoController {
 
     private final TodoService todoService;
@@ -47,7 +51,7 @@ public class TodoController {
      * Deletes the to-do with the given ID.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTodo(@Min(1) @PathVariable  Long id) {
 
             todoService.deleteTodo(id);
             return ResponseEntity.ok().build();
@@ -61,7 +65,7 @@ public class TodoController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(
-            @PathVariable Long id,
+            @PathVariable @Min(1) Long id,
            @Valid @RequestBody Todo patch
     ) {
 
