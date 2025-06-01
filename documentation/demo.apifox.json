@@ -1,0 +1,293 @@
+{
+  "apifoxProject": "1.0.0",
+  "$schema": {
+    "app": "apifox",
+    "type": "project",
+    "version": "1.2.0"
+  },
+  "info": {
+    "name": "demo"
+  },
+  "apiCollection": [
+    {
+      "name": "demo",
+      "items": [
+        {
+          "name": "com.todoapp.demo.controller.TodoController",
+          "items": [
+            {
+              "name": "GET /api/todos",
+              "api": {
+                "method": "get",
+                "path": "/api/todos",
+                "description": "Fetches all to-dos.",
+                "tags": [],
+                "parameters": {},
+                "requestBody": {
+                  "type": "none",
+                  "parameters": []
+                },
+                "responses": [
+                  {
+                    "code": 200,
+                    "name": "success",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "title",
+                          "completed"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": ""
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": ""
+                          },
+                          "completed": {
+                            "type": "boolean",
+                            "description": ""
+                          }
+                        },
+                        "description": "java.util.List<com.todoapp.demo.entity.Todo>"
+                      },
+                      "description": "java.util.List<com.todoapp.demo.entity.Todo>"
+                    },
+                    "description": "",
+                    "contentType": "json"
+                  }
+                ],
+                "responseExamples": [
+                  {
+                    "name": "success",
+                    "data": "[\n  {\n    \"id\": 0,\n    \"title\": \"\",\n    \"completed\": true\n  }\n]",
+                    "description": ""
+                  }
+                ]
+              }
+            },
+            {
+              "name": "POST /api/todos",
+              "api": {
+                "method": "post",
+                "path": "/api/todos",
+                "description": "Creates a new to-do. Expects a JSON body with \"title\" and optional \"completed\".",
+                "tags": [],
+                "parameters": {},
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "title",
+                      "completed"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": ""
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": ""
+                      },
+                      "completed": {
+                        "type": "boolean",
+                        "description": ""
+                      }
+                    },
+                    "description": "com.todoapp.demo.entity.Todo"
+                  },
+                  "example": "{\n  \"id\": 0,\n  \"title\": \"\",\n  \"completed\": true\n}"
+                },
+                "responses": [
+                  {
+                    "code": 200,
+                    "name": "success",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "title",
+                        "completed"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": ""
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": ""
+                        },
+                        "completed": {
+                          "type": "boolean",
+                          "description": ""
+                        }
+                      },
+                      "description": "com.todoapp.demo.entity.Todo"
+                    },
+                    "description": "",
+                    "contentType": "json"
+                  }
+                ],
+                "responseExamples": [
+                  {
+                    "name": "success",
+                    "data": "{\n  \"id\": 0,\n  \"title\": \"\",\n  \"completed\": true\n}",
+                    "description": ""
+                  }
+                ]
+              }
+            },
+            {
+              "name": "DELETE /api/todos/",
+              "api": {
+                "method": "delete",
+                "path": "/api/todos/{id}",
+                "description": "{\nid\n}\nDeletes the to-do with the given ID.",
+                "tags": [],
+                "parameters": {
+                  "path": [
+                    {
+                      "name": "id",
+                      "type": "integer",
+                      "example": "0",
+                      "enable": true,
+                      "description": ""
+                    }
+                  ]
+                },
+                "requestBody": {
+                  "type": "none",
+                  "parameters": []
+                },
+                "responses": [
+                  {
+                    "code": 200,
+                    "name": "success",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {},
+                      "description": ""
+                    },
+                    "description": "",
+                    "contentType": "json"
+                  }
+                ],
+                "responseExamples": [
+                  {
+                    "name": "success",
+                    "data": "",
+                    "description": ""
+                  }
+                ]
+              }
+            },
+            {
+              "name": "PUT /api/todos/",
+              "api": {
+                "method": "put",
+                "path": "/api/todos/{id}",
+                "description": "{\nid\n}\nUpdate title and/or completed status of an existing to-do.\nClient can send a JSON body with any subset of\n{\n\"title\": \"...\", \"completed\": true/false\n}\n.",
+                "tags": [],
+                "parameters": {
+                  "path": [
+                    {
+                      "name": "id",
+                      "type": "integer",
+                      "example": "0",
+                      "enable": true,
+                      "description": ""
+                    }
+                  ]
+                },
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "title",
+                      "completed"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": ""
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": ""
+                      },
+                      "completed": {
+                        "type": "boolean",
+                        "description": ""
+                      }
+                    },
+                    "description": "com.todoapp.demo.entity.Todo"
+                  },
+                  "example": "{\n  \"id\": 0,\n  \"title\": \"\",\n  \"completed\": true\n}"
+                },
+                "responses": [
+                  {
+                    "code": 200,
+                    "name": "success",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "title",
+                        "completed"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": ""
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": ""
+                        },
+                        "completed": {
+                          "type": "boolean",
+                          "description": ""
+                        }
+                      },
+                      "description": "com.todoapp.demo.entity.Todo"
+                    },
+                    "description": "",
+                    "contentType": "json"
+                  }
+                ],
+                "responseExamples": [
+                  {
+                    "name": "success",
+                    "data": "{\n  \"id\": 0,\n  \"title\": \"\",\n  \"completed\": true\n}",
+                    "description": ""
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "environments": [],
+  "commonParameters": {
+    "parameters": {}
+  }
+}
