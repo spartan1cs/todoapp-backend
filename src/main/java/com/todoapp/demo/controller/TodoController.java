@@ -62,4 +62,23 @@ public class TodoController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * PUT /api/todos/{id}
+     * Update title and/or completed status of an existing to-do.
+     * Client can send a JSON body with any subset of { "title": "...", "completed": true/false }.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Todo> updateTodo(
+            @PathVariable Long id,
+            @RequestBody Todo patch
+    ) {
+        try {
+            Todo updated = todoService.updateTodo(id, patch);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            // e.g. if not found or invalid input
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

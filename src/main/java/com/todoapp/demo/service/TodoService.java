@@ -1,11 +1,5 @@
 package com.todoapp.demo.service;
 
-// src/main/java/com/example/todo/service/TodoService.java
-
-
-
-
-
 import com.todoapp.demo.entity.Todo;
 import com.todoapp.demo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +54,33 @@ public class TodoService {
         }
         todoRepository.deleteById(id);
     }
-}
+
+
+        /**
+         * Update an existing to-do by ID.
+         *
+         * We look up the existing record, then patch its fields.
+         * If the client sends only { "completed": true }, we keep the old title.
+         *
+         * @param id   the ID of the to-do to update
+         * @param patch a Todo object whose non-null fields we copy over
+         * @return the updated Todo
+         */
+        public Todo updateTodo(Long id, Todo patch) {
+            // 1) Fetch the existing entity (or throw if not found)
+            Todo existing = todoRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Todo not found with id " + id));
+
+            // 2) Only overwrite fields that are non-null in the patch object
+            if (patch.getTitle() != null && !patch.getTitle().trim().isEmpty()) {
+                existing.setTitle(patch.getTitle().trim());
+            }
+            if (patch.getCompleted() != null) {
+                existing.setCompleted(patch.getCompleted());
+            }
+
+            // 3) Save the updated entity back to the database
+            return todoRepository.save(existing);
+        }
+    }
+
