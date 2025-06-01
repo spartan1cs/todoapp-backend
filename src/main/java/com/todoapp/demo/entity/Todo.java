@@ -1,16 +1,12 @@
 package com.todoapp.demo.entity;
-
-// src/main/java/com/example/todo/entity/Todo.java
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+
+
 
 /**
  * Represents a to-do item in the database.
@@ -25,6 +21,9 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @Column(nullable = false)
+    @NotBlank(message = "Title must not be blank")
     private String title;
     private Boolean completed;
 }

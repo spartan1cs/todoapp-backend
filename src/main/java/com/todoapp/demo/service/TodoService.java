@@ -1,6 +1,7 @@
 package com.todoapp.demo.service;
 
 import com.todoapp.demo.entity.Todo;
+import com.todoapp.demo.exception.TodoNotFoundException;
 import com.todoapp.demo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,10 +32,7 @@ public class TodoService {
      * @return newly created Todo with generated ID.
      */
     public Todo createTodo(Todo todo) {
-        // We could add validation here, e.g. ensure todo.getTitle() is not empty.
-        if (todo.getTitle() == null || todo.getTitle().trim().isEmpty()) {
-            throw new IllegalArgumentException("Title must not be empty");
-        }
+       // In your service class
         // Default completed = false if null
         if (todo.getCompleted() == null) {
             todo.setCompleted(false);
@@ -50,7 +48,7 @@ public class TodoService {
         // Optional: check existence first
         Optional<Todo> existing = todoRepository.findById(id);
         if (existing.isEmpty()) {
-            throw new RuntimeException("Todo not found with id " + id);
+            throw new TodoNotFoundException("Todo not found with id " + id);
         }
         todoRepository.deleteById(id);
     }
@@ -69,7 +67,7 @@ public class TodoService {
         public Todo updateTodo(Long id, Todo patch) {
             // 1) Fetch the existing entity (or throw if not found)
             Todo existing = todoRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Todo not found with id " + id));
+                    .orElseThrow(() -> new TodoNotFoundException("Todo not found with id " + id));
 
             // 2) Only overwrite fields that are non-null in the patch object
             if (patch.getTitle() != null && !patch.getTitle().trim().isEmpty()) {

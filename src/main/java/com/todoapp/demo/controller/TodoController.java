@@ -1,11 +1,8 @@
 package com.todoapp.demo.controller;
 
-// src/main/java/com/example/todo/controller/TodoController.java
-
-
-
 import com.todoapp.demo.entity.Todo;
 import com.todoapp.demo.service.TodoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +36,10 @@ public class TodoController {
      * Creates a new to-do. Expects a JSON body with "title" and optional "completed".
      */
     @PostMapping
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
-        try {
-            Todo created = todoService.createTodo(todo);
-            return ResponseEntity.ok(created);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {
+         Todo created = todoService.createTodo(todo);
+         return ResponseEntity.ok(created);
+
     }
 
     /**
@@ -54,13 +48,10 @@ public class TodoController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
-        try {
+
             todoService.deleteTodo(id);
             return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            // Not found or other error
-            return ResponseEntity.notFound().build();
-        }
+
     }
 
     /**
@@ -71,14 +62,11 @@ public class TodoController {
     @PutMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(
             @PathVariable Long id,
-            @RequestBody Todo patch
+           @Valid @RequestBody Todo patch
     ) {
-        try {
+
             Todo updated = todoService.updateTodo(id, patch);
             return ResponseEntity.ok(updated);
-        } catch (RuntimeException e) {
-            // e.g. if not found or invalid input
-            return ResponseEntity.notFound().build();
-        }
+
     }
 }
