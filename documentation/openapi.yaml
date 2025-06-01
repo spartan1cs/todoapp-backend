@@ -11,6 +11,8 @@ paths:
         content:
           application/json:
             schema:
+              required:
+              - "title"
               type: "object"
               properties:
                 id:
@@ -30,6 +32,8 @@ paths:
           content:
             application/json:
               schema:
+                required:
+                - "title"
                 type: "object"
                 properties:
                   id:
@@ -57,6 +61,8 @@ paths:
         content:
           application/json:
             schema:
+              required:
+              - "title"
               type: "object"
               properties:
                 id:
@@ -76,6 +82,8 @@ paths:
           content:
             application/json:
               schema:
+                required:
+                - "title"
                 type: "object"
                 properties:
                   id:
