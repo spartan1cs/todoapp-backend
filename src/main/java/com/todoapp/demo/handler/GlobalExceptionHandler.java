@@ -104,6 +104,7 @@ package com.todoapp.demo.handler;
         }
 
         //Generic Exception: Any unexpected server error.
+        // This is a catch-all for any other exceptions that are not handled above.
         @ExceptionHandler(Exception.class)
         public ResponseEntity<Map<String, Object>> handleAllExceptions(Exception ex) {
             Map<String, Object> body = new HashMap<>();
