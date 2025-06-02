@@ -4,7 +4,6 @@ import com.todoapp.demo.entity.Todo;
 import com.todoapp.demo.service.TodoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -64,11 +63,7 @@ public class TodoController {
      * Client can send a JSON body with any subset of { "title": "...", "completed": true/false }.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Todo> updateTodo(
-            @PathVariable @Min(1) Long id,
-           @Valid @RequestBody Todo patch
-    ) {
-
+    public ResponseEntity<Todo> updateTodo(@PathVariable @Min(1) Long id, @Valid @RequestBody Todo patch) {
             Todo updated = todoService.updateTodo(id, patch);
             return ResponseEntity.ok(updated);
 
